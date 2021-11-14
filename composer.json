@@ -1,0 +1,46 @@
+{
+  "name": "yonder/yomosdk-logging",
+  "description": "Provides integrated logging capabilities to YOMO Satellites",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Stuart Steedman",
+      "email": "stuart@yonder.co.za"
+    }
+  ],
+  "require": {
+    "php": "^7.4|^8.0",
+    "danielstjules/stringy": "^3.1",
+    "laravel/framework": "^8.0",
+    "predis/predis": "^1.1"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^6.0",
+    "phpunit/phpunit": "^9.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Yomo7\\Logging\\": "src"
+    },
+    "files": [
+      "src/helper.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Yomo7\\Logging\\Tests\\": "tests"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Yomo7\\Logging\\Providers\\YomoLoggingServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "repositories": {
+  }
+}
