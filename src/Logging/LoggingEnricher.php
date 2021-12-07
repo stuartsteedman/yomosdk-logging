@@ -4,7 +4,7 @@ namespace Yomo7\Logging\Logging;
 
 abstract class LoggingEnricher
 {
-    /** @var string  */
+    /** @var string */
     public string $type;
 
     /** @var array|LoggingEnricher[] */
@@ -19,6 +19,17 @@ abstract class LoggingEnricher
     public static function register(LoggingEnricher $enricher): void
     {
         self::$enrichers[$enricher->type] = $enricher;
+    }
+
+    /**
+     * @param array $context
+     */
+    public static function execute(array &$context): void
+    {
+        /** @var LoggingEnricher $enricher */
+        foreach(self::$enrichers as $enricher) {
+            $enricher->enrich($context);
+        }
     }
 
     /**

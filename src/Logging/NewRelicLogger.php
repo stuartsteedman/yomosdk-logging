@@ -2,9 +2,7 @@
 
 namespace Yomo7\Logging\Logging;
 
-use Auth;
 use Illuminate\Support\Facades\App;
-use Monolog\Handler\MissingExtensionException;
 use Monolog\Handler\NewRelicHandler;
 use Monolog\Logger;
 use Illuminate\Http\Request;
@@ -37,11 +35,17 @@ class NewRelicLogger
         $log->pushHandler(new BufferHandler($handler));
         $log->pushHandler(new NewRelicHandler(Logger::WARNING, true));
 
-        /*foreach ($log->getHandlers() as $handler) {
-            $handler->pushProcessor([$this, 'parseLogLevel']);
-        }*/
+        foreach ($log->getHandlers() as $handler) {
+            $handler->pushProcessor([$this, 'enrich']);
+        }
 
         return $log;
+    }
+
+    public function enrich(array $context): array
+    {
+        LoggingEnricher::execute($context);
+        return $context;
     }
 
 }
